@@ -24,8 +24,27 @@ import {
   Flex,
   IconButton,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import Tablerow from "../components/Tablerow";
 
+//UseEffect to fetch data
 export default function Dashboard() {
+  const [tickets, setTickets] = useState([]);
+
+  useEffect(function () {
+    async function getData() {
+      const res = await fetch(`./data/db.json`);
+      const data = await res.json();
+
+      //Setting result data into ticket variable
+      setTickets(data);
+    }
+
+    // Calling the async function above
+    getData();
+  }, []); // [] = runs only on initial mount
+
+  // console.log(tickets.map((entry) => console.log(entry)));
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
       <CardHeader p="6px 0px 22px 0px">
@@ -46,176 +65,9 @@ export default function Dashboard() {
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td pl="0px">
-                <Flex align="center" minWidth="100%" flexWrap="nowrap">
-                  <Avatar src="/img/abu.JPG" w="50px" borderRadius="12px" me="18px" />
-                  <Flex direction="column">
-                    <Text fontSize="sm" fontWeight="bold" minWidth="100%">
-                      Oooga Oganen
-                    </Text>
-                    <Text fontSize="sm" color="gray.500" fontWeight="normal">
-                      Admin
-                    </Text>
-                  </Flex>
-                </Flex>
-              </Td>
-
-              <Td>
-                <Text fontSize="sm" fontWeight="bold" color="gray.500">
-                  1122
-                </Text>
-              </Td>
-
-              <Td>
-                <Text fontSize="sm" fontWeight="bold" color="gray.500">
-                  Testi tiketti blaablaa
-                </Text>
-              </Td>
-
-              <Td>
-                <Text fontSize="sm" fontWeight="bold" pb=".5rem" color="gray.500">
-                  12/06/21
-                </Text>
-              </Td>
-
-              <Td>
-                <Badge bg="green.300" color="white" fontSize="12px" p="2px 8px" borderRadius="8px">
-                  Resolved
-                </Badge>
-              </Td>
-
-              <Td>
-                <IconButton
-                  color="gray.500"
-                  border="none"
-                  variant="outline"
-                  aria-label="Edit button"
-                  icon={<EditIcon />}
-                />
-                <IconButton
-                  color="gray.500"
-                  border="none"
-                  variant="outline"
-                  aria-label="Delete button"
-                  icon={<DeleteIcon />}
-                />
-              </Td>
-            </Tr>
-
-            <Tr>
-              <Td pl="0px">
-                <Flex align="center" minWidth="100%" flexWrap="nowrap">
-                  <Avatar src="/img/abu.JPG" w="50px" borderRadius="12px" me="18px" />
-                  <Flex direction="column">
-                    <Text fontSize="sm" fontWeight="bold" minWidth="100%">
-                      Oooga Oganen
-                    </Text>
-                    <Text fontSize="sm" color="gray.500" fontWeight="normal">
-                      Admin
-                    </Text>
-                  </Flex>
-                </Flex>
-              </Td>
-
-              <Td>
-                <Text fontSize="sm" fontWeight="bold" color="gray.500">
-                  1122
-                </Text>
-              </Td>
-
-              <Td>
-                <Text fontSize="sm" fontWeight="bold" color="gray.500">
-                  Testi tiketti blaablaa
-                </Text>
-              </Td>
-
-              <Td>
-                <Text fontSize="sm" fontWeight="bold" pb=".5rem" color="gray.500">
-                  12/06/21
-                </Text>
-              </Td>
-
-              <Td>
-                <Badge bg="green.300" color="white" fontSize="12px" p="2px 8px" borderRadius="8px">
-                  Resolved
-                </Badge>
-              </Td>
-
-              <Td>
-                <IconButton
-                  color="gray.500"
-                  border="none"
-                  variant="outline"
-                  aria-label="Edit button"
-                  icon={<EditIcon />}
-                />
-                <IconButton
-                  color="gray.500"
-                  border="none"
-                  variant="outline"
-                  aria-label="Delete button"
-                  icon={<DeleteIcon />}
-                />
-              </Td>
-            </Tr>
-
-            <Tr>
-              <Td pl="0px">
-                <Flex align="center" minWidth="100%" flexWrap="nowrap">
-                  <Avatar src="/img/abu.JPG" w="50px" borderRadius="12px" me="18px" />
-                  <Flex direction="column">
-                    <Text fontSize="sm" fontWeight="bold" minWidth="100%">
-                      Oooga Oganen
-                    </Text>
-                    <Text fontSize="sm" color="gray.500" fontWeight="normal">
-                      Admin
-                    </Text>
-                  </Flex>
-                </Flex>
-              </Td>
-
-              <Td>
-                <Text fontSize="sm" fontWeight="bold" color="gray.500">
-                  1122
-                </Text>
-              </Td>
-
-              <Td>
-                <Text fontSize="sm" fontWeight="bold" color="gray.500">
-                  Testi tiketti blaablaa
-                </Text>
-              </Td>
-
-              <Td>
-                <Text fontSize="sm" fontWeight="bold" pb=".5rem" color="gray.500">
-                  12/06/21
-                </Text>
-              </Td>
-
-              <Td>
-                <Badge bg="green.300" color="white" fontSize="12px" p="2px 8px" borderRadius="8px">
-                  Resolved
-                </Badge>
-              </Td>
-
-              <Td>
-                <IconButton
-                  color="gray.500"
-                  border="none"
-                  variant="outline"
-                  aria-label="Edit button"
-                  icon={<EditIcon />}
-                />
-                <IconButton
-                  color="gray.500"
-                  border="none"
-                  variant="outline"
-                  aria-label="Delete button"
-                  icon={<DeleteIcon />}
-                />
-              </Td>
-            </Tr>
+            {tickets.map((entry) => (
+              <Tablerow ticketObj={entry} key={entry.id} />
+            ))}
           </Tbody>
         </Table>
       </CardBody>

@@ -32,7 +32,7 @@ export default function Navbar() {
       </Heading>
       <Spacer />
       {/*first two  props fallback options for avatar */}
-      <Avatar name="Abu Osman" bg="green.200" src="/img/abu.JPG">
+      <Avatar name="Abu Osman" bg="green.200" src="/img/5.jpg">
         <AvatarBadge width="1.3em" bg="teal.500">
           <Text fontSize="xs" color="white">
             3
