@@ -26,22 +26,27 @@ export default function Navbar() {
     });
   };
   return (
-    <Flex as="nav" p="10px" alignItems="center" gap="15px" m="20px">
+    <Flex as="nav" p="10px" alignItems="center" gap="12px" m="10px">
       <Heading as="h1" color="gray.500">
         Dashboard
       </Heading>
       <Spacer />
       {/*first two  props fallback options for avatar */}
-      <Avatar name="Abu Osman" bg="green.200" src="/img/5.jpg">
+      <Avatar name="user name" bg="green.200" src="/img/2.jpg" w="50px" borderRadius="12px">
         <AvatarBadge width="1.3em" bg="teal.500">
           <Text fontSize="xs" color="white">
             3
           </Text>
         </AvatarBadge>
       </Avatar>
-      <Text fontWeight="bold" color="gray.500">
-        Arthur Admin
-      </Text>
+      <Flex direction="column" gap="0">
+        <Text fontSize="md" fontWeight="bold">
+          Arthur Ayes
+        </Text>
+        <Text fontSize="sm" color="gray.500" fontWeight="normal">
+          Admin
+        </Text>
+      </Flex>
       <Button onClick={showToast} colorScheme="purple">
         Logout
       </Button>

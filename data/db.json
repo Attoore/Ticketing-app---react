@@ -5,6 +5,7 @@
     "title": "Testi tiketti 111",
     "description": "There is an issue with the navbar on the homepage. It is not displaying correctly on mobile devices.",
     "agent": "Mario Admin",
+    "date": "06/12/23",
     "img": "/img/1.jpg"
   },
   {
@@ -13,6 +14,7 @@
     "title": "Testi tiketti 222",
     "description": "There is an issue with the navbar on the homepage. It is not displaying correctly on mobile devices.",
     "agent": "Mario Admin",
+    "date": "06/12/23",
     "img": "/img/2.jpg"
   },
   {
@@ -21,6 +23,7 @@
     "title": "Testi tiketti 333",
     "description": "There is an issue with the navbar on the homepage. It is not displaying correctly on mobile devices.",
     "agent": "Mario Admin",
+    "date": "06/12/23",
     "img": "/img/3.jpg"
   },
   {
@@ -29,6 +32,7 @@
     "title": "Testi tiketti 444",
     "description": "There is an issue with the navbar on the homepage. It is not displaying correctly on mobile devices.",
     "agent": "Mario Admin",
+    "date": "06/12/23",
     "img": "/img/4.jpg"
   },
   {
@@ -37,6 +41,7 @@
     "title": "Testi tiketti 555",
     "description": "There is an issue with the navbar on the homepage. It is not displaying correctly on mobile devices.",
     "agent": "Mario Admin",
+    "date": "06/12/23",
     "img": "/img/5.jpg"
   }
 ]
