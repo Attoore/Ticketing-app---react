@@ -19,8 +19,9 @@ app.use((err, req, res, next) => {
   res.status(500).json("ERROR: Something broke! (database)");
 });
 
+//Connecting to MongoDB
 mongoose
-  .connect("mongodb://localhost/")
+  .connect("mongodb://127.0.0.1:27017")
   .then(() => {
     console.log("connected to DB");
   })
