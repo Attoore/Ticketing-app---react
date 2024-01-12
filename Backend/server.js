@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import user from user.js
 // import cors from "cors"; //**********
 
 const app = express(); // Creates an instance of the Express application.
@@ -21,13 +22,21 @@ app.use((err, req, res, next) => {
 
 //Connecting to MongoDB
 mongoose
-  .connect("mongodb://127.0.0.1:27017")
+  .connect("mongodb://127.0.0.1:27017/database1")
   .then(() => {
     console.log("connected to DB");
   })
   .catch((error) => {
-    console.log(error);
+    console.log(error.message);
   });
+
+new user({name: "Bob", role: "admin", pfp: "https://static.wikia.nocookie.net/boondocks/images/7/7e/Riley_esco.jpg/revision/latest?cb=20150908232311"})
+user.save()
+
+
+
+
+
 
 const port = process.env.PORT || 8080; // Use port deifined in env if not set default to 8080
 
