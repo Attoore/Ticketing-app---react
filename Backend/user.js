@@ -6,4 +6,4 @@ const userSchema = new mongoose.Schema({
   pfp: String,
 });
 
-module.exports = mongoose.model("user", userSchema);
+export default mongoose.model("User", userSchema);

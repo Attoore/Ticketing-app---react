@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
-import user from user.js
+import User from "./User.js";
+import Ticket from "./Ticket.js";
+
 // import cors from "cors"; //**********
 
 const app = express(); // Creates an instance of the Express application.
@@ -30,13 +32,28 @@ mongoose
     console.log(error.message);
   });
 
-new user({name: "Bob", role: "admin", pfp: "https://static.wikia.nocookie.net/boondocks/images/7/7e/Riley_esco.jpg/revision/latest?cb=20150908232311"})
-user.save()
+async function createUser() {
+  // Async func that creates new user model using the schema
 
+  const user = await User.create({ name: "Mike", role: "admin", pfp: "url" });
 
+  console.log(`User saved`);
+  console.log(user);
+}
+// createUser(); // Call the function
 
-
-
+async function createTicket() {
+  const ticket = await Ticket.create({
+    id: 1234,
+    status: "Open",
+    agent: "Bob admin",
+    title: "title blaa",
+    desc: "desc blaa",
+  });
+  console.log("Ticket saved");
+  console.log(ticket);
+}
+// createTicket();
 
 const port = process.env.PORT || 8080; // Use port deifined in env if not set default to 8080
 
