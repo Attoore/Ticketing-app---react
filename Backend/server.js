@@ -55,6 +55,16 @@ async function createTicket() {
 }
 // createTicket();
 
+// Find a ticket
+async function findTicket() {
+  try {
+    const ticket = await Ticket.findById("id");
+    console.log(ticket);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 const port = process.env.PORT || 8080; // Use port deifined in env if not set default to 8080
 
 app.listen(port, () => {
