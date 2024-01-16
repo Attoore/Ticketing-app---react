@@ -59,7 +59,7 @@ export default function Dashboard() {
               <Th ps="0">Agent</Th>
               <Th>ID</Th>
               <Th>Title</Th>
-              <Th>Edited</Th>
+              <Th>Updated</Th>
               <Th>Status</Th>
               <Th>Actions</Th>
             </Tr>

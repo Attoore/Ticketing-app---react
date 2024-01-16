@@ -36,14 +36,20 @@ async function findTicket(targetId) {
   try {
     const ticket = await Ticket.findById(`${targetId}`);
     console.log(ticket);
+
+    const day = ticket.updatedAt.getDate().toString().padStart(2, 0);
+    const month = (ticket.updatedAt.getMonth() + 1).toString().padStart(2, 0);
+    const year = ticket.updatedAt.getFullYear().toString().slice(2);
+
+    console.log(`${day}/${month}/${year}`);
   } catch (error) {
     console.log(error.message);
   }
 }
-// findTicket("65a4f87b02b612f5851647a7");
+findTicket("65a4f87b02b612f5851647a7");
 
 //!yellow--------------Fetch all Tickets ---------------
-async function fetchAllTickets() {
+export async function fetchAllTickets() {
   try {
     const tickets = await Ticket.find();
     console.log(tickets);
@@ -62,7 +68,7 @@ async function fetchAllUsers() {
     console.log(error.message);
   }
 }
-fetchAllUsers();
+// fetchAllUsers();
 
 //!yellow--------------CREATE a user ---------------
 async function createUser() {
