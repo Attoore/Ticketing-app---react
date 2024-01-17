@@ -26,25 +26,13 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Tablerow from "../components/Tablerow";
+import { useOutletContext } from "react-router-dom";
 
-//UseEffect to fetch data
 export default function Dashboard() {
-  const [tickets, setTickets] = useState([]);
-
-  useEffect(function () {
-    async function getData() {
-      const res = await fetch(`./data/db.json`);
-      const data = await res.json();
-
-      //Setting result data into ticket variable
-      setTickets(data);
-    }
-
-    // Calling the async function above
-    getData();
-  }, []); // [] = runs only on initial mount
-
-  // console.log(tickets.map((entry) => console.log(entry)));
+  // Recieving tickets array state trough outlet context
+  const { tickets, setTickets } = useOutletContext();
+  // console.log(tickets);
+  // console.log(setTickets);
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
       <CardHeader p="6px 0px 22px 0px">

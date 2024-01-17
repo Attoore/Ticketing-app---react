@@ -11,6 +11,9 @@ import {
 import { Form, redirect } from "react-router-dom";
 
 export default function Create() {
+  // Recieving tickets array state trough outlet context
+  const { tickets, setTickets } = useOutletContext();
+
   return (
     <Box maxW="480px">
       <Form method="post" action="/create">

@@ -1,11 +1,12 @@
 import express from "express";
+import cors from "cors"; //**********
 import mongoose from "mongoose";
 import User from "./User.js";
 import Ticket from "./Ticket.js";
 // import cors from "cors"; //**********
 
 const app = express(); // Creates an instance of the Express application.
-// app.use(cors()); // tells Express to use the CORS middleware - so can respond to requests from different origins
+app.use(cors()); // tells Express to use the CORS middleware - so can respond to requests from different origins
 app.use(express.json()); // so server can parse incoming json from POST requests body
 
 app.get("/", (req, res) => {
@@ -46,7 +47,7 @@ async function findTicket(targetId) {
     console.log(error.message);
   }
 }
-findTicket("65a4f87b02b612f5851647a7");
+// findTicket("65a4f87b02b612f5851647a7");
 
 //!yellow--------------Fetch all Tickets ---------------
 export async function fetchAllTickets() {
@@ -60,24 +61,36 @@ export async function fetchAllTickets() {
 // fetchAllTickets();
 
 //!yellow--------------Fetch all Users ---------------
-async function fetchAllUsers() {
+app.get("/users", async (req, res) => {
   try {
     const users = await User.find();
     console.log(users);
+    res.json(users);
   } catch (error) {
+    res.send(error.message);
     console.log(error.message);
   }
-}
-// fetchAllUsers();
+});
+
+// export async function fetchAllUsers() {
+//   try {
+//     const users = await User.find();
+//     console.log(users);
+//     return users;
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+// // fetchAllUsers();
 
 //!yellow--------------CREATE a user ---------------
 async function createUser() {
   // Async func that creates new user model using the schema
   try {
     const user = await User.create({
-      name: "Mike",
+      name: "Mario Admin",
       role: "admin",
-      pfp: "url",
+      img: "url",
     });
     console.log(`User saved`);
     console.log(user);
