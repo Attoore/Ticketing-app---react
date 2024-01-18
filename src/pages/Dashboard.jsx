@@ -30,8 +30,9 @@ import { useOutletContext } from "react-router-dom";
 
 export default function Dashboard() {
   // Recieving tickets array state trough outlet context
-  const { tickets, setTickets } = useOutletContext();
+  const { tickets, setTickets, users, setUsers } = useOutletContext();
   // console.log(tickets);
+  // console.log(users);
   // console.log(setTickets);
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
@@ -53,9 +54,13 @@ export default function Dashboard() {
             </Tr>
           </Thead>
           <Tbody>
-            {tickets.map((entry) => (
-              <Tablerow ticketObj={entry} key={entry.id} />
-            ))}
+            {/* Loop trough tickets and render a tablerow for each + find correct user for eaach ticket - pass ticket + user info to tablerow component */}
+            {tickets.map((entry) => {
+              const user = users.find((user) => user.name == entry.agent);
+              user ? console.log(user) : console.log("user not found");
+
+              return <Tablerow ticketObj={entry} userObj={user} key={entry._id} />;
+            })}
           </Tbody>
         </Table>
       </CardBody>

@@ -1,7 +1,7 @@
 import { Text, Tr, Th, Td, Avatar, Badge, Button, Flex, IconButton } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
-function Tablerow({ ticketObj }) {
+function Tablerow({ ticketObj, userObj }) {
   const colour = {
     Open: "blue.400",
     Pending: "orange.300",
@@ -18,7 +18,7 @@ function Tablerow({ ticketObj }) {
               {ticketObj.agent}
             </Text>
             <Text fontSize="sm" color="gray.500" fontWeight="normal">
-              Admin
+              {userObj.role}
             </Text>
           </Flex>
         </Flex>
@@ -26,7 +26,7 @@ function Tablerow({ ticketObj }) {
 
       <Td>
         <Text fontSize="sm" fontWeight="bold" color="gray.500">
-          {ticketObj.id}
+          {ticketObj._id.slice(-5).toString().toUpperCase()}
         </Text>
       </Td>
 
@@ -38,7 +38,8 @@ function Tablerow({ ticketObj }) {
 
       <Td>
         <Text fontSize="sm" fontWeight="bold" pb=".5rem" color="gray.500">
-          {ticketObj.date}
+          {/* {ticketObj.date} */}
+          date-test
         </Text>
       </Td>
 

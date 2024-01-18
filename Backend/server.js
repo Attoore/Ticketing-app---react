@@ -38,11 +38,11 @@ async function findTicket(targetId) {
     const ticket = await Ticket.findById(`${targetId}`);
     console.log(ticket);
 
-    const day = ticket.updatedAt.getDate().toString().padStart(2, 0);
-    const month = (ticket.updatedAt.getMonth() + 1).toString().padStart(2, 0);
-    const year = ticket.updatedAt.getFullYear().toString().slice(2);
+    // const day = ticket.updatedAt.getDate().toString().padStart(2, 0);
+    // const month = (ticket.updatedAt.getMonth() + 1).toString().padStart(2, 0);
+    // const year = ticket.updatedAt.getFullYear().toString().slice(2);
 
-    console.log(`${day}/${month}/${year}`);
+    // console.log(`${day}/${month}/${year}`);
   } catch (error) {
     console.log(error.message);
   }
@@ -50,21 +50,31 @@ async function findTicket(targetId) {
 // findTicket("65a4f87b02b612f5851647a7");
 
 //!yellow--------------Fetch all Tickets ---------------
-export async function fetchAllTickets() {
+app.get("/tickets", async (req, res) => {
   try {
     const tickets = await Ticket.find();
     console.log(tickets);
+    res.json(tickets);
   } catch (error) {
+    res.send(error.message);
     console.log(error.message);
   }
-}
+});
+// export async function fetchAllTickets() {
+//   try {
+//     const tickets = await Ticket.find();
+//     console.log(tickets);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
 // fetchAllTickets();
 
 //!yellow--------------Fetch all Users ---------------
 app.get("/users", async (req, res) => {
   try {
     const users = await User.find();
-    console.log(users);
+    // console.log(users);
     res.json(users);
   } catch (error) {
     res.send(error.message);
@@ -89,7 +99,7 @@ async function createUser() {
   try {
     const user = await User.create({
       name: "Mario Admin",
-      role: "admin",
+      role: "Admin",
       img: "url",
     });
     console.log(`User saved`);
