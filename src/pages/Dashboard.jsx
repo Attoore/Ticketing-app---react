@@ -24,16 +24,13 @@ import {
   Flex,
   IconButton,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import Tablerow from "../components/Tablerow";
 import { useOutletContext } from "react-router-dom";
 
 export default function Dashboard() {
   // Recieving tickets array state trough outlet context
-  const { tickets, setTickets, users, setUsers } = useOutletContext();
-  // console.log(tickets);
-  // console.log(users);
-  // console.log(setTickets);
+  const { tickets, users, setFetchTrigger } = useOutletContext();
+
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
       <CardHeader p="6px 0px 22px 0px">
@@ -54,13 +51,28 @@ export default function Dashboard() {
             </Tr>
           </Thead>
           <Tbody>
-            {/* Loop trough tickets and render a tablerow for each + find correct user for eaach ticket - pass ticket + user info to tablerow component */}
-            {tickets.map((entry) => {
-              const user = users.find((user) => user.name == entry.agent);
-              user ? console.log(user) : console.log("user not found");
+            {
+              // Loop trough tickets and render a tablerow for each + find correct user for each ticket - pass ticket + user info to tablerow component  ---  users.length > 0 && checks that users array is populated if not skip mapping, when data is fetched and array populated -> state changes -> component re-renders now data available
 
-              return <Tablerow ticketObj={entry} userObj={user} key={entry._id} />;
-            })}
+              users.length > 0 &&
+                tickets.map((entry) => {
+                  const user = users.find((user) => user.name == entry.agent);
+
+                  // incase user of the ticket not found in DB
+                  if (!user) {
+                    console.log("user not found", entry);
+                  }
+
+                  return (
+                    <Tablerow
+                      ticketObj={entry}
+                      userObj={user}
+                      key={entry._id}
+                      setFetchTrigger={setFetchTrigger}
+                    />
+                  );
+                })
+            }
           </Tbody>
         </Table>
       </CardBody>

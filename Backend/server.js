@@ -47,7 +47,7 @@ async function findTicket(targetId) {
     console.log(error.message);
   }
 }
-// findTicket("65a4f87b02b612f5851647a7");
+findTicket("65a4f8838039a77d457c18f4");
 
 //!yellow--------------Fetch all Tickets ---------------
 app.get("/tickets", async (req, res) => {
@@ -127,7 +127,7 @@ async function createTicket() {
     const ticket = await Ticket.create({
       id: 1234,
       status: "Open",
-      agent: "Bob admin",
+      agent: "Bob User",
       title: "title blaa",
       desc: "desc blaa",
     });
@@ -143,25 +143,35 @@ async function createTicket() {
 async function updateTicket(targetId) {
   try {
     const ticket = await Ticket.findById(`${targetId}`);
-    ticket.status = "Resolved";
+    ticket.status = "Pending";
     await ticket.save();
     console.log(ticket);
   } catch (error) {
     console.log(error.message);
   }
 }
-// updateTicket("65a4f87b02b612f5851647a7");
+// updateTicket("65a4f8838039a77d457c18f4");
 
 //!yellow--------------DELETE a Ticket ---------------
-async function deleteTicket(targetId) {
+app.get("/tickets/delete/:id", async (req, res) => {
   try {
-    const ticket = await Ticket.deleteOne({ _id: `${targetId}` });
-    console.log(ticket);
+    const targetId = req.params.id;
+    await Ticket.deleteOne({ _id: `${targetId}` });
+    res.json(`Ticket ${targetId} was deleted`);
   } catch (error) {
+    res.send(error.message);
     console.log(error.message);
   }
-}
-// deleteTicket("65a2987d4210bc6fd232de99");
+});
+// async function deleteTicket(targetId) {
+//   try {
+//     const ticket = await Ticket.deleteOne({ _id: `${targetId}` });
+//     console.log(ticket);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+// // deleteTicket("65a2987d4210bc6fd232de99");
 
 // !green ---------MongoDB database functions - END -----------
 

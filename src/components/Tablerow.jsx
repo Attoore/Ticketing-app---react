@@ -1,18 +1,44 @@
+import { useState, useEffect } from "react";
 import { Text, Tr, Th, Td, Avatar, Badge, Button, Flex, IconButton } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
-function Tablerow({ ticketObj, userObj }) {
+function Tablerow({ ticketObj, userObj, setFetchTrigger }) {
   const colour = {
     Open: "blue.400",
     Pending: "orange.300",
     Resolved: "green.300",
     Closed: "gray.400",
   };
+
+  const formatDate = function (passedDate) {
+    const date = new Date(passedDate);
+
+    const day = date.getDate().toString().padStart(2, 0);
+    const month = (date.getMonth() + 1).toString().padStart(2, 0);
+    const year = date.getFullYear().toString().slice(2);
+
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+  };
+
+  const handleDelete = async function (id) {
+    try {
+      const res = await fetch(`http://127.0.0.1:8080/tickets/delete/${id}`);
+      const data = await res.json();
+      console.log(data);
+
+      // trigger fetch updated ticket list (in dependacy array in Rootlayout component)
+      setFetchTrigger((prev) => !prev); //toggle true/false
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <Tr>
       <Td pl="0px">
         <Flex align="center" minWidth="100%" flexWrap="nowrap">
-          <Avatar src={ticketObj.img} w="50px" borderRadius="12px" me="18px" />
+          <Avatar src={userObj.img} w="50px" borderRadius="12px" me="18px" />
           <Flex direction="column">
             <Text fontSize="sm" fontWeight="bold" minWidth="100%">
               {ticketObj.agent}
@@ -38,8 +64,7 @@ function Tablerow({ ticketObj, userObj }) {
 
       <Td>
         <Text fontSize="sm" fontWeight="bold" pb=".5rem" color="gray.500">
-          {/* {ticketObj.date} */}
-          date-test
+          {formatDate(ticketObj.updatedAt)}
         </Text>
       </Td>
 
@@ -50,7 +75,7 @@ function Tablerow({ ticketObj, userObj }) {
           fontSize="12px"
           p="2px 8px"
           borderRadius="8px"
-          width="65%"
+          width="90px"
           textAlign="center"
         >
           {ticketObj.status}
@@ -71,6 +96,7 @@ function Tablerow({ ticketObj, userObj }) {
           variant="outline"
           aria-label="Delete button"
           icon={<DeleteIcon />}
+          onClick={() => handleDelete(ticketObj._id)}
         />
       </Td>
     </Tr>

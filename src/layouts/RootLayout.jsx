@@ -8,33 +8,29 @@ import { set } from "mongoose";
 export default function RootLayout() {
   // console.log("RENDERED - RootLayout");
 
+  // state for fetch triggering using dependacy array
+  const [fetchTrigger, setFetchTrigger] = useState(false);
+
   //States for Tickets / Users from DB
   const [tickets, setTickets] = useState([]);
   const [users, setUsers] = useState([]);
 
   //Fetch the tickets and save to state
-  useEffect(function () {
-    async function getTickets() {
-      const res = await fetch(`http://127.0.0.1:8080/tickets`);
-      const tickets = await res.json();
-      setTickets(tickets);
-      // console.log(users);
-    }
-    getTickets();
-  }, []);
-  // useEffect(function () {
-  //   async function getTickets() {
-  //     const res = await fetch(`./data/db.json`);
-  //     const data = await res.json();
-
-  //     //Setting result data into ticket variable
-  //     setTickets(data);
-  //   }
-
-  //   // Calling the async function above
-  //   getTickets();
-  // }, []); // [] = runs only on initial mount
-  // console.log(tickets.map((entry) => console.log(entry)));
+  useEffect(
+    function () {
+      async function getTickets() {
+        try {
+          const res = await fetch(`http://127.0.0.1:8080/tickets`);
+          const tickets = await res.json();
+          setTickets(tickets); // Set the state
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+      getTickets();
+    },
+    [fetchTrigger]
+  ); //trigger state inclunded
 
   //Fetch the Users and save to state
   useEffect(function () {
@@ -47,7 +43,7 @@ export default function RootLayout() {
     getUsers();
   }, []);
 
-  // Passing the state trough Outlet context to Dashboard.jsx & Create.jsx
+  // Passing the states & funcs trough Outlet context to Dashboard.jsx & Create.jsx
   return (
     <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">
       <GridItem as="aside" colSpan="1" bg="gray.100" minHeight={{ lg: "100vh" }}>
@@ -56,7 +52,7 @@ export default function RootLayout() {
 
       <GridItem as="main" colSpan="5">
         <Navbar />
-        <Outlet context={{ tickets, setTickets, users, setUsers }} />
+        <Outlet context={{ tickets, users, setFetchTrigger }} />
       </GridItem>
     </Grid>
   );
