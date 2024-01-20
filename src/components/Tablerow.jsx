@@ -27,7 +27,7 @@ function Tablerow({ ticketObj, userObj, setFetchTrigger }) {
       const data = await res.json();
       console.log(data);
 
-      // trigger fetch updated ticket list (in dependacy array in Rootlayout component)
+      // trigger fetching updated ticket list (in dependacy array in Rootlayout component)
       setFetchTrigger((prev) => !prev); //toggle true/false
     } catch (error) {
       console.log(error.message);
