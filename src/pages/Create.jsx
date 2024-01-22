@@ -8,14 +8,14 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useOutletContext } from "react-router-dom";
 
 export default function Create() {
   // Recieving tickets array state trough outlet context
   const { tickets, setTickets } = useOutletContext();
 
   return (
-    <Box maxW="480px">
+    <Box maxW="480px" bg="white">
       <Form method="post" action="/create">
         <FormControl isRequired mb="40px">
           <FormLabel> Task name:</FormLabel>

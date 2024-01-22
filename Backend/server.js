@@ -47,13 +47,14 @@ async function findTicket(targetId) {
     console.log(error.message);
   }
 }
-findTicket("65a4f8838039a77d457c18f4");
+// findTicket("65a4f8838039a77d457c18f4");
 
 //!yellow--------------Fetch all Tickets ---------------
 app.get("/tickets", async (req, res) => {
   try {
     const tickets = await Ticket.find();
-    console.log(tickets);
+    console.log("Tickets fetched");
+    // console.log(tickets);
     res.json(tickets);
   } catch (error) {
     res.send(error.message);

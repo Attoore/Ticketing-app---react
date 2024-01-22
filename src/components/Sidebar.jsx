@@ -4,34 +4,37 @@ import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   return (
-    <List color="gray.500" fontSize="1.2em" fontWeight="bold" spacing={10}>
+    <List color="gray.500" fontSize="1.2em" fontWeight="bold" spacing={10} ps="20px">
       <Text>Interface</Text>
 
-      {/* <ListItem backgroundColor="white">
-        <ListIcon as={CalendarIcon} color="white" />
+      <ListItem>
+        <ListIcon as={EditIcon} />
+        <NavLink to="/create">Create</NavLink>
+      </ListItem>
+
+      <ListItem>
+        <ListIcon as={EditIcon} />
         <NavLink to="/">Dashboard</NavLink>
-      </ListItem> */}
-
-      <ListItem>
-        <Button colorScheme="gray" width="100%">
-          <ListIcon as={EditIcon} />
-          <NavLink to="/">Dashboard</NavLink>
-        </Button>
       </ListItem>
 
       <ListItem>
-        <Button colorScheme="gray" width="100%">
-          <ListIcon as={EditIcon} />
-          <NavLink to="/create">Create</NavLink>
-        </Button>
+        <ListIcon as={EditIcon} />
+        <NavLink to="/profile">Profile</NavLink>
       </ListItem>
+    </List>
+  );
+}
 
-      <ListItem>
+{
+  /* <ListItem>
         <Button colorScheme="gray" width="100%">
           <ListIcon as={EditIcon} />
           <NavLink to="/profile">Profile</NavLink>
         </Button>
       </ListItem>
-    </List>
-  );
+
+      <ListItem backgroundColor="white">
+        <ListIcon as={CalendarIcon} color="white" />
+        <NavLink to="/">Dashboard</NavLink>
+      </ListItem> */
 }
