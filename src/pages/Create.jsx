@@ -2,10 +2,12 @@ import {
   Box,
   Button,
   Checkbox,
+  Flex,
   FormControl,
   FormHelperText,
   FormLabel,
   Input,
+  Select,
   Textarea,
 } from "@chakra-ui/react";
 import { Form, redirect, useOutletContext } from "react-router-dom";
@@ -15,25 +17,46 @@ export default function Create() {
   const { tickets, setTickets } = useOutletContext();
 
   return (
-    <Box maxW="480px" bg="white">
+    <Box maxW="720px" bg="white" ms="20px" p="15px">
       <Form method="post" action="/create">
-        <FormControl isRequired mb="40px">
-          <FormLabel> Task name:</FormLabel>
+        <FormControl isRequired mb="30px">
+          <FormLabel> Title</FormLabel>
           <Input type="text" name="title" />
-          <FormHelperText> Enter a descriptibe task name.</FormHelperText>
+          {/* <FormHelperText> Enter a descriptibe task name.</FormHelperText> */}
         </FormControl>
 
-        <FormControl mb="40px">
-          <FormLabel>Task description:</FormLabel>
-          <Textarea placeholder="Enter ooga booga..." name="description" />
+        <Flex mb="30px">
+          <FormControl isRequired>
+            <FormLabel>Agent</FormLabel>
+            <Select>
+              <option value="Agent1">Agent 1</option>
+              <option value="Agent2">Agent 2</option>
+              <option value="Agent3">Agent 3</option>
+            </Select>
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel>Status</FormLabel>
+            <Select>
+              <option value="Open">Open</option>
+              <option value="Pending">Pending</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+            </Select>
+          </FormControl>
+        </Flex>
+
+        <FormControl isRequired mb="40px">
+          <FormLabel>Description:</FormLabel>
+          <Textarea placeholder="Enter a description..." name="description" />
         </FormControl>
 
-        <FormControl display="flex" alignItems="center" mb="40px">
+        {/* <FormControl display="flex" alignItems="center" mb="40px">
           <Checkbox size="lg" colorScheme="purple" name="isPriority" />
           <FormLabel mb="0" ml="10px">
             Make this priority task.
           </FormLabel>
-        </FormControl>
+        </FormControl> */}
 
         <Button type="submit">Submit</Button>
       </Form>
@@ -52,5 +75,5 @@ export const createAction = async function ({ request }) {
 
   console.log(task);
 
-  return redirect("/");
+  return redirect("/"); //Reditects user to dashboard after submit
 };
