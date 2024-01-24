@@ -28,7 +28,7 @@ export default function Create() {
         <Flex mb="30px">
           <FormControl isRequired>
             <FormLabel>Agent</FormLabel>
-            <Select>
+            <Select name="agent">
               <option value="Agent1">Agent 1</option>
               <option value="Agent2">Agent 2</option>
               <option value="Agent3">Agent 3</option>
@@ -37,7 +37,7 @@ export default function Create() {
 
           <FormControl isRequired>
             <FormLabel>Status</FormLabel>
-            <Select>
+            <Select name="status">
               <option value="Open">Open</option>
               <option value="Pending">Pending</option>
               <option value="Resolved">Resolved</option>
@@ -65,12 +65,14 @@ export default function Create() {
 }
 
 export const createAction = async function ({ request }) {
+  //request obj from react router
   const data = await request.formData();
 
   const task = {
     title: data.get("title"),
+    agent: data.get("agent"),
+    status: data.get("status"),
     description: data.get("description"),
-    isPriority: data.get("isPriority") === "",
   };
 
   console.log(task);
