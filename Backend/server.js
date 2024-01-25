@@ -123,21 +123,38 @@ async function deleteUser(targetId) {
 // deleteUser("65a29460142b0d1523a93470");
 
 //!yellow--------------CREATE a Ticket ---------------
-async function createTicket() {
+app.post("/tickets", async (req, res) => {
   try {
     const ticket = await Ticket.create({
-      id: 1234,
-      status: "Open",
-      agent: "Bob User",
-      title: "title blaa",
-      desc: "desc blaa",
+      title: req.body.title,
+      agent: req.body.agent,
+      status: req.body.status,
+      desc: req.body.desc,
     });
+    res.status(201).send(ticket);
+
     console.log("Ticket saved");
     console.log(ticket);
   } catch (error) {
     console.log(error.message);
   }
-}
+});
+
+// async function createTicket() {
+//   try {
+//     const ticket = await Ticket.create({
+//       id: 1234,
+//       status: "Open",
+//       agent: "Bob User",
+//       title: "title blaa",
+//       desc: "desc blaa",
+//     });
+//     console.log("Ticket saved");
+//     console.log(ticket);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
 // createTicket();
 
 //!yellow--------------UPDATE a Ticket ---------------

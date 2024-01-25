@@ -8,11 +8,9 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Card,
   CardHeader,
@@ -78,44 +76,4 @@ export default function Dashboard() {
       </CardBody>
     </Card>
   );
-}
-
-// const boxStyles = {
-//   padding: "10px",
-//   bg: "green",
-//   color: "white",
-//   m: "10px",
-//   textAlign: "center",
-//   ":hover": {
-//     color: "black",
-//     bg: "yellow.200",
-//   },
-// };
-
-// <div>
-//     <Container as="section" maxWidth="4xl" py="20px">
-//       <Heading>Chakra heading</Heading>
-//       <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, asperiores.</Text>
-
-//       <Box sx={boxStyles}>Olaa como estas</Box>
-//     </Container>
-//   </div>
-
-{
-  /* <SimpleGrid p="10px" spacing={10} minChildWidth="250px">
-      <Box bg="white" h="200px" border="1px solid"></Box>
-      <Box bg="white" h="200px" border="1px solid"></Box>
-      <Box bg="white" h="200px" border="1px solid"></Box>
-      <Box bg="white" h="200px" border="1px solid"></Box>
-
-      <Box bg="white" h="200px" border="1px solid"></Box>
-      <Box bg="white" h="200px" border="1px solid"></Box>
-      <Box bg="white" h="200px" border="1px solid"></Box>
-      <Box bg="white" h="200px" border="1px solid"></Box>
-
-      <Box bg="white" h="200px" border="1px solid"></Box>
-      <Box bg="white" h="200px" border="1px solid"></Box>
-      <Box bg="white" h="200px" border="1px solid"></Box>
-      <Box bg="white" h="200px" border="1px solid"></Box>
-    </SimpleGrid> */
 }

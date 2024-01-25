@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { set } from "mongoose";
 
 export default function RootLayout() {
-  // console.log("RENDERED - RootLayout");
+  console.log("RENDERED - RootLayout");
 
   // state for fetch triggering using dependacy array
   const [fetchTrigger, setFetchTrigger] = useState(false);

@@ -13,8 +13,8 @@ import {
 import { Form, redirect, useOutletContext } from "react-router-dom";
 
 export default function Create() {
-  // Recieving tickets array state trough outlet context
-  const { tickets, setTickets } = useOutletContext();
+  // Recieving states/functions trough outlet context
+  const { setFetchTrigger } = useOutletContext();
 
   return (
     <Box maxW="720px" bg="white" ms="20px" p="15px">
@@ -29,9 +29,9 @@ export default function Create() {
           <FormControl isRequired>
             <FormLabel>Agent</FormLabel>
             <Select name="agent">
-              <option value="Agent1">Agent 1</option>
-              <option value="Agent2">Agent 2</option>
-              <option value="Agent3">Agent 3</option>
+              <option value="Mario Admin">Mario Admin</option>
+              <option value="John User">John User</option>
+              <option value="Mike User">Mike User</option>
             </Select>
           </FormControl>
 
@@ -48,7 +48,7 @@ export default function Create() {
 
         <FormControl isRequired mb="40px">
           <FormLabel>Description:</FormLabel>
-          <Textarea placeholder="Enter a description..." name="description" />
+          <Textarea placeholder="Enter a description..." name="desc" />
         </FormControl>
 
         {/* <FormControl display="flex" alignItems="center" mb="40px">
@@ -68,14 +68,34 @@ export const createAction = async function ({ request }) {
   //request obj from react router
   const data = await request.formData();
 
-  const task = {
+  //Extracting values from form fields into a ticket object
+  const ticket = {
     title: data.get("title"),
     agent: data.get("agent"),
     status: data.get("status"),
-    description: data.get("description"),
+    desc: data.get("desc"),
   };
 
-  console.log(task);
+  //Post request to the server using ticket object
+  try {
+    const response = await fetch(`http://127.0.0.1:8080/tickets`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(ticket),
+    });
 
-  return redirect("/"); //Reditects user to dashboard after submit
+    const ticketData = await response.json();
+    // console.log(ticketData)
+    // trigger fetching updated ticket list (in dependacy array in Rootlayout component)
+    // setFetchTrigger((prev) => !prev); //toggle true/false
+  } catch (error) {
+    console.log(error.message);
+  }
+
+  return redirect("/"); //Redirects user to dashboard after submit
 };
+
+//HOW TO TRIGGER RE-FETCH AFTER REDIRECT
+// 1- cant use fetchtrigger inside func that has the redirect
+// 2- redirect causes remount of Dashboard, but refetch useEffect on rootlayout (not remounted)
+// 3- move useEffect to dashbord? How will create/profile access states?
