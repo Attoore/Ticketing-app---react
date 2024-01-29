@@ -5,21 +5,21 @@ import { NavLink } from "react-router-dom";
 export default function Sidebar() {
   return (
     <List color="gray.500" fontSize="1.2em" fontWeight="bold" spacing={10} ps="20px">
-      <Text>Interface</Text>
+      <Text>Sidebar</Text>
 
       <ListItem>
         <ListIcon as={EditIcon} />
-        <NavLink to="/create">Create</NavLink>
+        <Text>Create</Text>
       </ListItem>
 
       <ListItem>
         <ListIcon as={EditIcon} />
-        <NavLink to="/">Dashboard</NavLink>
+        <Text>Dashboard</Text>
       </ListItem>
 
       <ListItem>
         <ListIcon as={EditIcon} />
-        <NavLink to="/profile">Profile</NavLink>
+        <Text>Profile</Text>
       </ListItem>
     </List>
   );

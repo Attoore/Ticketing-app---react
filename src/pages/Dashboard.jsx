@@ -23,11 +23,10 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import Tablerow from "../components/Tablerow";
-import { useOutletContext } from "react-router-dom";
 
-export default function Dashboard() {
+export default function Dashboard({ tickets, users, setFetchTrigger }) {
   // Recieving tickets array state trough outlet context
-  const { tickets, users, setFetchTrigger } = useOutletContext();
+  // const { tickets, users, setFetchTrigger } = useOutletContext();
 
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
