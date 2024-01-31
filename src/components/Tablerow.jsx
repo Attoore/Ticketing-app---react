@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Text, Tr, Th, Td, Avatar, Badge, Button, Flex, IconButton } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
-function Tablerow({ ticketObj, userObj, setFetchTrigger }) {
+function Tablerow({ ticketObj, userObj, setFetchTicketsTrigger }) {
   const colour = {
     Open: "blue.400",
     Pending: "orange.300",
@@ -28,7 +28,7 @@ function Tablerow({ ticketObj, userObj, setFetchTrigger }) {
       console.log(data);
 
       // trigger fetching updated ticket list (in dependacy array in App component)
-      setFetchTrigger((prev) => !prev); //toggle true/false
+      setFetchTicketsTrigger((prev) => !prev); //toggle true/false
     } catch (error) {
       console.log(error.message);
     }

@@ -24,9 +24,8 @@ import {
 } from "@chakra-ui/react";
 import Tablerow from "../components/Tablerow";
 
-export default function Dashboard({ tickets, users, setFetchTrigger }) {
+export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
   // Recieving tickets array state trough outlet context
-  // const { tickets, users, setFetchTrigger } = useOutletContext();
 
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
@@ -65,7 +64,7 @@ export default function Dashboard({ tickets, users, setFetchTrigger }) {
                       ticketObj={entry}
                       userObj={user}
                       key={entry._id}
-                      setFetchTrigger={setFetchTrigger}
+                      setFetchTicketsTrigger={setFetchTicketsTrigger}
                     />
                   );
                 })

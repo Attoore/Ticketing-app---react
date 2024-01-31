@@ -1,5 +1,6 @@
 import {
   Box,
+  Heading,
   Button,
   Checkbox,
   Flex,
@@ -14,124 +15,155 @@ import {
 import { Formik, Field } from "formik";
 // import { Form, redirect, useOutletContext } from "react-router-dom";
 
-export default function Create({ setFetchTrigger }) {
+export default function Create({ setFetchTicketsTrigger, setFetchUsersTrigger, users }) {
   //Recieving fetch function trigger as prop
 
   return (
-    <Box maxW="720px" bg="white" ms="20px" p="15px">
-      <Formik // Using Formik library for the form
-        initialValues={{
-          //Prociding initial values for fields - select fields need value to not be empty if untouched
-          title: "",
-          agent: "Mario Admin",
-          status: "Open",
-          desc: "",
-        }}
-        onSubmit={async function (values, { resetForm }) {
-          //Values from formik
-          const ticket = {
-            // Extracting field values into ticket object
-            title: values.title,
-            agent: values.agent,
-            status: values.status,
-            desc: values.desc,
-          };
+    <>
+      <Box as="ticket-form" maxW="720px" bg="white" ms="20px" p="15px">
+        <Heading as="h1" size="lg" color="gray.500" mb="6">
+          New Ticket
+        </Heading>
+        <Formik // Using Formik library for the form
+          initialValues={{
+            //Providing initial values for fields - select fields need value to not be empty if untouched
+            title: "",
+            agent: "Mario Admin",
+            status: "Open",
+            desc: "",
+          }}
+          onSubmit={async function (values, { resetForm }) {
+            //Values from formik
+            const ticket = {
+              // Extracting field values into ticket object
+              title: values.title,
+              agent: values.agent,
+              status: values.status,
+              desc: values.desc,
+            };
+            //Post request to the server using ticket object
+            try {
+              const response = await fetch(`http://127.0.0.1:8080/tickets`, {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(ticket),
+              });
+              const ticketData = await response.json();
+              console.log(ticketData);
+              // trigger fetching updated ticket list (in dependacy array in Rootlayout component)
+              setFetchTicketsTrigger((prev) => !prev); //toggle true/false
+            } catch (error) {
+              console.log(error.message);
+            }
+            resetForm();
+          }}
+        >
+          {(
+            { handleSubmit, errors, touched } //These from formik
+          ) => (
+            <form onSubmit={handleSubmit}>
+              <FormControl isRequired mb="30px">
+                <FormLabel> Title</FormLabel>
+                <Field as={Input} type="text" name="title" />
+              </FormControl>
+              <Flex mb="30px">
+                <FormControl isRequired>
+                  <FormLabel>Agent</FormLabel>
+                  <Field as={Select} name="agent">
+                    <option value="Mario Admin">Mario Admin</option>
+                    <option value="John User">John User</option>
+                    <option value="Mike User">Mike User</option>
+                  </Field>
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel>Status</FormLabel>
+                  <Field as={Select} name="status">
+                    <option value="Open">Open</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="Closed">Closed</option>
+                  </Field>
+                </FormControl>
+              </Flex>
+              <FormControl isRequired mb="40px">
+                <FormLabel>Description:</FormLabel>
+                <Field as={Textarea} placeholder="Enter a description..." name="desc" />
+              </FormControl>
+              <Button type="submit">Submit</Button>
+            </form>
+          )}
+        </Formik>
+      </Box>
+      <Box as="user-form" maxW="720px" bg="white" ms="20px" p="15px">
+        <Heading as="h1" size="lg" color="gray.500" mb="6">
+          New User
+        </Heading>
+        <Formik // Using Formik library for the form
+          initialValues={{
+            //Providing initial values for fields - select fields need value to not be empty if untouched
+            username: "",
+            password: "",
+            role: "User",
+            img: `/img/11.jpg`, // default profilepic incase not found
+          }}
+          onSubmit={async function (values, { resetForm }) {
+            //Values from formik
+            const user = {
+              // Extracting field values into user object
+              username: values.username,
+              password: values.password,
+              role: values.role,
+              img: `/img/${users.length + 1}.jpg`, // increment img url to assign next profilepic
+            };
 
-          //Post request to the server using ticket object
-          try {
-            const response = await fetch(`http://127.0.0.1:8080/tickets`, {
-              method: "POST",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify(ticket),
-            });
+            console.log(users.length + 1);
+            console.log(user);
 
-            const ticketData = await response.json();
-            console.log(ticketData);
+            //Post request to the server using user object
+            // try {
+            //   const response = await fetch(`http://127.0.0.1:8080/users`, {
+            //     method: "POST",
+            //     headers: { "content-type": "application/json" },
+            //     body: JSON.stringify(user),
+            //   });
+            //   const userData = await response.json();
+            //   console.log(userData);
+            //   // trigger fetching updated ticket list (in dependacy array in Rootlayout component)
+            //   setFetchUsersTrigger((prev) => !prev); //toggle true/false
+            // } catch (error) {
+            //   console.log(error.message);
+            // }
+            // resetForm();
+          }}
+        >
+          {(
+            { handleSubmit, errors, touched } //These from formik
+          ) => (
+            <form onSubmit={handleSubmit}>
+              <FormControl isRequired mb="30px">
+                <FormLabel> Username </FormLabel>
+                <Field as={Input} type="text" name="username" />
+              </FormControl>
 
-            // trigger fetching updated ticket list (in dependacy array in Rootlayout component)
-            setFetchTrigger((prev) => !prev); //toggle true/false
-          } catch (error) {
-            console.log(error.message);
-          }
+              <FormControl isRequired mb="30px">
+                <FormLabel> Password </FormLabel>
+                <Field as={Input} type="text" name="password" />
+              </FormControl>
 
-          resetForm();
-        }}
-      >
-        {(
-          { handleSubmit, errors, touched } //These from formik
-        ) => (
-          <form onSubmit={handleSubmit}>
-            <FormControl isRequired mb="30px">
-              <FormLabel> Title</FormLabel>
-              <Field as={Input} type="text" name="title" />
-            </FormControl>
-
-            <Flex mb="30px">
-              <FormControl isRequired>
-                <FormLabel>Agent</FormLabel>
-                <Field as={Select} name="agent">
-                  <option value="Mario Admin">Mario Admin</option>
-                  <option value="John User">John User</option>
-                  <option value="Mike User">Mike User</option>
+              <FormControl>
+                <FormLabel>Role</FormLabel>
+                <Field as={Select} name="role">
+                  <option value="User">User</option>
+                  <option value="Admin">Admin</option>
                 </Field>
               </FormControl>
 
-              <FormControl isRequired>
-                <FormLabel>Status</FormLabel>
-                <Field as={Select} name="status">
-                  <option value="Open">Open</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Resolved">Resolved</option>
-                  <option value="Closed">Closed</option>
-                </Field>
-              </FormControl>
-            </Flex>
-
-            <FormControl isRequired mb="40px">
-              <FormLabel>Description:</FormLabel>
-              <Field as={Textarea} placeholder="Enter a description..." name="desc" />
-            </FormControl>
-
-            <Button type="submit">Submit</Button>
-          </form>
-        )}
-      </Formik>
-
-      {/* <Form method="post" action="/create">
-        <FormControl isRequired mb="30px">
-          <FormLabel> Title</FormLabel>
-          <Input type="text" name="title" />
-        </FormControl>
-
-        <Flex mb="30px">
-          <FormControl isRequired>
-            <FormLabel>Agent</FormLabel>
-            <Select name="agent">
-              <option value="Mario Admin">Mario Admin</option>
-              <option value="John User">John User</option>
-              <option value="Mike User">Mike User</option>
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired>
-            <FormLabel>Status</FormLabel>
-            <Select name="status">
-              <option value="Open">Open</option>
-              <option value="Pending">Pending</option>
-              <option value="Resolved">Resolved</option>
-              <option value="Closed">Closed</option>
-            </Select>
-          </FormControl>
-        </Flex>
-
-        <FormControl isRequired mb="40px">
-          <FormLabel>Description:</FormLabel>
-          <Textarea placeholder="Enter a description..." name="desc" />
-        </FormControl>
-
-        <Button type="submit">Submit</Button>
-      </Form> */}
-    </Box>
+              <Button type="submit">Submit</Button>
+            </form>
+          )}
+        </Formik>
+      </Box>
+    </>
   );
 }
 

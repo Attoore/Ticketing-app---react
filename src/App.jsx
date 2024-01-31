@@ -23,8 +23,9 @@ import { set } from "mongoose";
 function App() {
   console.log("RENDERED - RootLayout - APP-now");
 
-  // state for fetch triggering using dependacy array
-  const [fetchTrigger, setFetchTrigger] = useState(false);
+  // states for fetch triggering using dependacy arrays
+  const [fetchTicketsTrigger, setFetchTicketsTrigger] = useState(false);
+  const [fetchUsersTrigger, setFetchUsersTrigger] = useState(false);
 
   //States for Tickets / Users from DB
   const [tickets, setTickets] = useState([]);
@@ -44,19 +45,26 @@ function App() {
       }
       getTickets();
     },
-    [fetchTrigger]
+    [fetchTicketsTrigger]
   ); //trigger state inclunded
 
   //Fetch the Users and save to state
-  useEffect(function () {
-    async function getUsers() {
-      const res = await fetch(`http://127.0.0.1:8080/users`);
-      const users = await res.json();
-      setUsers(users);
-      // console.log(users);
-    }
-    getUsers();
-  }, []);
+  useEffect(
+    function () {
+      async function getUsers() {
+        try {
+          const res = await fetch(`http://127.0.0.1:8080/users`);
+          const users = await res.json();
+          setUsers(users);
+          // console.log(users);
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+      getUsers();
+    },
+    [fetchUsersTrigger]
+  );
 
   // Passing the states & funcs trough Outlet context to Dashboard.jsx & Create.jsx
   return (
@@ -67,9 +75,16 @@ function App() {
 
       <GridItem as="main" colSpan="5">
         <Navbar />
-        <Dashboard tickets={tickets} users={users} setFetchTrigger={setFetchTrigger} />
-        <Create setFetchTrigger={setFetchTrigger} />
-        {/* <Outlet context={{ tickets, users, setFetchTrigger }} /> */}
+        <Dashboard
+          tickets={tickets}
+          users={users}
+          setFetchTicketsTrigger={setFetchTicketsTrigger}
+        />
+        <Create
+          setFetchTicketsTrigger={setFetchTicketsTrigger}
+          setFetchUsersTrigger={setFetchUsersTrigger}
+          users={users}
+        />
       </GridItem>
     </Grid>
   );

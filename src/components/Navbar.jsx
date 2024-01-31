@@ -28,7 +28,7 @@ export default function Navbar() {
   return (
     <Flex as="nav" p="10px" alignItems="center" gap="12px" m="10px">
       <Heading as="h1" color="gray.500">
-        Dashboard
+        Navbar
       </Heading>
       <Spacer />
       {/*first two  props fallback options for avatar */}
