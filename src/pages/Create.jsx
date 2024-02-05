@@ -70,9 +70,11 @@ export default function Create({ setFetchTicketsTrigger, setFetchUsersTrigger, u
                 <FormControl isRequired>
                   <FormLabel>Agent</FormLabel>
                   <Field as={Select} name="agent">
-                    <option value="Mario Admin">Mario Admin</option>
-                    <option value="John User">John User</option>
-                    <option value="Mike User">Mike User</option>
+                    {users.map((entry) => (
+                      <option key={entry.username} value={entry.username}>
+                        {entry.username}
+                      </option>
+                    ))}
                   </Field>
                 </FormControl>
                 <FormControl isRequired>
@@ -94,6 +96,7 @@ export default function Create({ setFetchTicketsTrigger, setFetchUsersTrigger, u
           )}
         </Formik>
       </Box>
+
       <Box as="user-form" maxW="720px" bg="white" ms="20px" p="15px">
         <Heading as="h1" size="lg" color="gray.500" mb="6">
           New User
@@ -119,21 +122,21 @@ export default function Create({ setFetchTicketsTrigger, setFetchUsersTrigger, u
             console.log(users.length + 1);
             console.log(user);
 
-            //Post request to the server using user object
-            // try {
-            //   const response = await fetch(`http://127.0.0.1:8080/users`, {
-            //     method: "POST",
-            //     headers: { "content-type": "application/json" },
-            //     body: JSON.stringify(user),
-            //   });
-            //   const userData = await response.json();
-            //   console.log(userData);
-            //   // trigger fetching updated ticket list (in dependacy array in Rootlayout component)
-            //   setFetchUsersTrigger((prev) => !prev); //toggle true/false
-            // } catch (error) {
-            //   console.log(error.message);
-            // }
-            // resetForm();
+            // Post request to the server using user object
+            try {
+              const response = await fetch(`http://127.0.0.1:8080/users`, {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(user),
+              });
+              const userData = await response.json();
+              console.log(userData);
+              // trigger fetching updated ticket list (in dependacy array in Rootlayout component)
+              setFetchUsersTrigger((prev) => !prev); //toggle true/false
+            } catch (error) {
+              console.log(error.message);
+            }
+            resetForm();
           }}
         >
           {(

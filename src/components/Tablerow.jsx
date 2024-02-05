@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Text, Tr, Th, Td, Avatar, Badge, Button, Flex, IconButton } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
-function Tablerow({ ticketObj, userObj, setFetchTicketsTrigger }) {
+function Tablerow({ ticketObj, userObj, setFetchTicketsTrigger, onOpen }) {
   const colour = {
     Open: "blue.400",
     Pending: "orange.300",
@@ -29,6 +29,20 @@ function Tablerow({ ticketObj, userObj, setFetchTicketsTrigger }) {
 
       // trigger fetching updated ticket list (in dependacy array in App component)
       setFetchTicketsTrigger((prev) => !prev); //toggle true/false
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleEdit = async function (ticketObj) {
+    try {
+      // const res = await fetch(`http://127.0.0.1:8080/tickets/edit/${id}`);
+      // const data = await res.json();
+      console.log(ticketObj);
+      onOpen();
+
+      // trigger fetching updated ticket list (in dependacy array in App component)
+      // setFetchTicketsTrigger((prev) => !prev); //toggle true/false
     } catch (error) {
       console.log(error.message);
     }
@@ -89,6 +103,7 @@ function Tablerow({ ticketObj, userObj, setFetchTicketsTrigger }) {
           variant="outline"
           aria-label="Edit button"
           icon={<EditIcon />}
+          onClick={() => handleEdit(ticketObj)}
         />
         <IconButton
           color="gray.500"

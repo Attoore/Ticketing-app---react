@@ -99,7 +99,8 @@ async function createUser() {
   // Async func that creates new user model using the schema
   try {
     const user = await User.create({
-      name: "Mario Admin",
+      username: "Mario Admin",
+      password: "mario123",
       role: "Admin",
       img: "url",
     });
@@ -110,6 +111,23 @@ async function createUser() {
   }
 }
 // createUser();
+
+app.post("/users", async (req, res) => {
+  try {
+    const user = await User.create({
+      username: req.body.username,
+      password: req.body.password,
+      role: req.body.role,
+      img: req.body.img,
+    });
+    res.status(201).send(user);
+
+    console.log("User created");
+    console.log(user);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
 //!yellow--------------DELETE a User ---------------
 async function deleteUser(targetId) {

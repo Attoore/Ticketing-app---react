@@ -1,3 +1,4 @@
+import EditForm from "../components/EditForm";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Heading,
@@ -21,11 +22,15 @@ import {
   Button,
   Flex,
   IconButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Tablerow from "../components/Tablerow";
 
 export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
-  // Recieving tickets array state trough outlet context
+  // Recieving tickets array state
+
+  //For edit form modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
@@ -52,7 +57,7 @@ export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
 
               users.length > 0 &&
                 tickets.map((entry) => {
-                  const user = users.find((user) => user.name == entry.agent);
+                  const user = users.find((user) => user.username == entry.agent);
 
                   // incase user of the ticket not found in DB
                   if (!user) {
@@ -65,12 +70,20 @@ export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
                       userObj={user}
                       key={entry._id}
                       setFetchTicketsTrigger={setFetchTicketsTrigger}
+                      onOpen={onOpen} // For edit modal
                     />
                   );
                 })
             }
           </Tbody>
         </Table>
+        <EditForm
+          tickets={tickets}
+          users={users}
+          setFetchTicketsTrigger={setFetchTicketsTrigger}
+          isOpen={isOpen}
+          onClose={onClose}
+        />
       </CardBody>
     </Card>
   );
