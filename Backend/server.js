@@ -176,16 +176,36 @@ app.post("/tickets", async (req, res) => {
 // createTicket();
 
 //!yellow--------------UPDATE a Ticket ---------------
-async function updateTicket(targetId) {
+app.post("/tickets/edit/:id", async (req, res) => {
   try {
-    const ticket = await Ticket.findById(`${targetId}`);
-    ticket.status = "Pending";
+    //Fetch target ticket from DB
+    const ticket = await Ticket.findById(req.params.id);
+
+    //Update values
+    ticket.title = req.body.title;
+    ticket.agent = req.body.agent;
+    ticket.status = req.body.status;
+    ticket.desc = req.body.desc;
+
+    //save to DB
     await ticket.save();
+    res.status(201).send(ticket);
+    console.log("Ticket updated");
     console.log(ticket);
   } catch (error) {
     console.log(error.message);
   }
-}
+});
+// async function updateTicket(targetId) {
+//   try {
+//     const ticket = await Ticket.findById(`${targetId}`);
+//     ticket.status = "Pending";
+//     await ticket.save();
+//     console.log(ticket);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
 // updateTicket("65a4f8838039a77d457c18f4");
 
 //!yellow--------------DELETE a Ticket ---------------

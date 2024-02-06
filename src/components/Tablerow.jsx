@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Text, Tr, Th, Td, Avatar, Badge, Button, Flex, IconButton } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
-function Tablerow({ ticketObj, userObj, setFetchTicketsTrigger, onOpen }) {
+function Tablerow({ ticketObj, userObj, setFetchTicketsTrigger, onOpen, setClickedTicket }) {
   const colour = {
     Open: "blue.400",
     Pending: "orange.300",
@@ -39,6 +39,8 @@ function Tablerow({ ticketObj, userObj, setFetchTicketsTrigger, onOpen }) {
       // const res = await fetch(`http://127.0.0.1:8080/tickets/edit/${id}`);
       // const data = await res.json();
       console.log(ticketObj);
+      // set current ticket as target ticket state in dhasboard component -> passes to edit modal component
+      setClickedTicket(ticketObj);
       onOpen();
 
       // trigger fetching updated ticket list (in dependacy array in App component)

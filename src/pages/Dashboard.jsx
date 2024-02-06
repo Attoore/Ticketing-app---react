@@ -25,12 +25,14 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Tablerow from "../components/Tablerow";
+import { useState } from "react";
 
 export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
   // Recieving tickets array state
 
-  //For edit form modal
+  //For edit form modal -onOpen to tablerow the two others to editform conponent
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [clickedTicket, setClickedTicket] = useState({});
 
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
@@ -71,6 +73,7 @@ export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
                       key={entry._id}
                       setFetchTicketsTrigger={setFetchTicketsTrigger}
                       onOpen={onOpen} // For edit modal
+                      setClickedTicket={setClickedTicket}
                     />
                   );
                 })
@@ -83,6 +86,7 @@ export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
           setFetchTicketsTrigger={setFetchTicketsTrigger}
           isOpen={isOpen}
           onClose={onClose}
+          clickedTicket={clickedTicket}
         />
       </CardBody>
     </Card>
