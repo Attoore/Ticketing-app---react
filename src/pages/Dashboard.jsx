@@ -1,5 +1,5 @@
 import EditForm from "../components/EditForm";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Heading,
   Text,
@@ -22,6 +22,9 @@ import {
   Button,
   Flex,
   IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
   useDisclosure,
 } from "@chakra-ui/react";
 import Tablerow from "../components/Tablerow";
@@ -36,11 +39,15 @@ export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
 
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
-      <CardHeader p="6px 0px 22px 0px">
-        {/* <Text fontSize="xl" fontWeight="bold">
-          Authors Table
-        </Text> */}
-      </CardHeader>
+      <CardHeader p="6px 0px 22px 0px"></CardHeader>
+      <InputGroup width="280px" ms="auto" me="10%">
+        <Input placeholder="Search..." />
+        <InputRightElement>
+          <IconButton>
+            <SearchIcon color="gray.500" />
+          </IconButton>
+        </InputRightElement>
+      </InputGroup>
       <CardBody>
         <Table variant="simple" colorScheme="purple">
           <Thead>
