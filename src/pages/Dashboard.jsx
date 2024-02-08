@@ -29,8 +29,9 @@ import {
 } from "@chakra-ui/react";
 import Tablerow from "../components/Tablerow";
 import { useState } from "react";
+import SearchBar from "../components/SearchBar";
 
-export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
+export default function Dashboard({ tickets, users, setTickets, setFetchTicketsTrigger }) {
   // Recieving tickets array state
 
   //For edit form modal -onOpen to tablerow the two others to editform conponent
@@ -40,14 +41,7 @@ export default function Dashboard({ tickets, users, setFetchTicketsTrigger }) {
   return (
     <Card ps="0" ms="0" overflowX={{ sm: "scroll", xl: "hidden" }}>
       <CardHeader p="6px 0px 22px 0px"></CardHeader>
-      <InputGroup width="280px" ms="auto" me="10%">
-        <Input placeholder="Search..." />
-        <InputRightElement>
-          <IconButton>
-            <SearchIcon color="gray.500" />
-          </IconButton>
-        </InputRightElement>
-      </InputGroup>
+      <SearchBar setTickets={setTickets} />
       <CardBody>
         <Table variant="simple" colorScheme="purple">
           <Thead>

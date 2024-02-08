@@ -71,6 +71,26 @@ app.get("/tickets", async (req, res) => {
 // }
 // fetchAllTickets();
 
+//!yellow--------------Fetch matching Tickets ---------------
+app.get("/tickets/:term", async (req, res) => {
+  try {
+    const searchTerm = req.params.term;
+
+    // Create
+    const regex = new RegExp(searchTerm, "i");
+
+    const tickets = await Ticket.find({
+      $or: [{ agent: regex }, { title: regex }, { status: regex }, { desc: regex }],
+    });
+    console.log("Matching tickets fetched");
+    // console.log(tickets);
+    res.json(tickets);
+  } catch (error) {
+    res.send(error.message);
+    console.log(error.message);
+  }
+});
+
 //!yellow--------------Fetch all Users ---------------
 app.get("/users", async (req, res) => {
   try {

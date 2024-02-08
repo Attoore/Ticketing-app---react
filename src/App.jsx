@@ -78,6 +78,7 @@ function App() {
         <Dashboard
           tickets={tickets}
           users={users}
+          setTickets={setTickets}
           setFetchTicketsTrigger={setFetchTicketsTrigger}
         />
         {/* <Create
