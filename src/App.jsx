@@ -5,7 +5,7 @@ import Create from "./pages/Create";
 
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Flex, Box, Spacer } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { set } from "mongoose";
 
@@ -68,12 +68,12 @@ function App() {
 
   // Passing the states & funcs trough Outlet context to Dashboard.jsx & Create.jsx
   return (
-    <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">
-      <GridItem as="aside" colSpan="1" bg="gray.100" minHeight={{ lg: "100vh" }}>
+    <Flex bg="gray.50">
+      <Box as="aside" flex="1" borderRight="2px solid lightgray" minHeight={{ lg: "100vh" }}>
         <Sidebar />
-      </GridItem>
+      </Box>
 
-      <GridItem as="main" colSpan="5">
+      <Box as="main" flex="5">
         <Navbar />
         <Dashboard
           tickets={tickets}
@@ -86,8 +86,8 @@ function App() {
           setFetchUsersTrigger={setFetchUsersTrigger}
           users={users}
         /> */}
-      </GridItem>
-    </Grid>
+      </Box>
+    </Flex>
   );
 }
 
