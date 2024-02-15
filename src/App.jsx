@@ -2,12 +2,12 @@
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Create from "./pages/Create";
+import Login from "./pages/Login";
 
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import { Grid, GridItem, Flex, Box, Spacer } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { set } from "mongoose";
 
 // // router and routes
 // const router = createBrowserRouter(
@@ -86,6 +86,7 @@ function App() {
           setFetchUsersTrigger={setFetchUsersTrigger}
           users={users}
         /> */}
+        <Login />
       </Box>
     </Flex>
   );

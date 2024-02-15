@@ -21,7 +21,7 @@ export default function Sidebar() {
   const active = { shadow: "base", colorScheme: "green", bg: "white" };
 
   return (
-    <List color="gray.500" fontSize="1.2em" fontWeight="bold" spacing={10} ps="15px" pe="15px">
+    <List color="gray.500" fontSize="1.2em" fontWeight="bold" spacing={5} ps="15px" pe="15px">
       <Text>LOGO</Text>
       <Text>INTERFACE</Text>
 
